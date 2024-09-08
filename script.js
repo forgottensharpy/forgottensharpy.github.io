@@ -7,14 +7,15 @@ canvas.height = 400;
 
 // Load background image
 const background = new Image();
-background.src = 'assets/background.png'; // Updated path to the background image
+background.src = 'assets/background.png'; // Path to the background image
 
 const paddleWidth = 10;
 const paddleHeight = 100;
 const ballSize = 10;
 
 // Paddle positions and speeds
-let paddleSpeed = 4;
+const paddleSpeed = 6; // Speed of both paddles
+const aiMistakeChance = 0.02; // Probability of the AI making a mistake
 let playerPaddle = { x: 0, y: canvas.height / 2 - paddleHeight / 2, width: paddleWidth, height: paddleHeight };
 let aiPaddle = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, width: paddleWidth, height: paddleHeight };
 
@@ -34,9 +35,7 @@ function movePaddle(event) {
 }
 
 function stopPaddle(event) {
-    if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-        playerPaddle.y = playerPaddle.y;
-    }
+    // No specific action required for stopping the paddle, just handling the movement
 }
 
 function draw() {
@@ -84,11 +83,17 @@ function draw() {
         ball.speedY = 3;
     }
 
-    // AI paddle movement
-    if (aiPaddle.y + aiPaddle.height / 2 < ball.y) {
-        aiPaddle.y += paddleSpeed;
+    // AI paddle movement with random mistakes
+    if (Math.random() < aiMistakeChance) {
+        // Randomly move AI paddle up or down to simulate mistakes
+        aiPaddle.y += (Math.random() < 0.5 ? -paddleSpeed : paddleSpeed);
     } else {
-        aiPaddle.y -= paddleSpeed;
+        // Follow the ball with some constraints
+        if (aiPaddle.y + aiPaddle.height / 2 < ball.y) {
+            aiPaddle.y += paddleSpeed;
+        } else {
+            aiPaddle.y -= paddleSpeed;
+        }
     }
 
     // Ensure paddles don't go out of bounds
