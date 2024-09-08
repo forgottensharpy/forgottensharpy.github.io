@@ -102,7 +102,7 @@ function draw() {
 }
 
 // Game loop
-setInterval(draw, 1000 / 60); // 60 frames per second
+setInterval(draw, 1000 / 120); // 120 frames per second
 
 // Initialize game
 background.onload = () => {
