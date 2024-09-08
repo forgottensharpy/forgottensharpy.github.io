@@ -14,8 +14,8 @@ const paddleHeight = 100;
 const ballSize = 10;
 
 // Paddle positions and speeds
-const paddleSpeed = 6; // Speed of both paddles
-const aiMistakeChance = 0.02; // Probability of the AI making a mistake
+const paddleSpeed = 10; // Speed of both paddles
+const aiMistakeChance = 22; // Probability of the AI making a mistake
 let playerPaddle = { x: 0, y: canvas.height / 2 - paddleHeight / 2, width: paddleWidth, height: paddleHeight };
 let aiPaddle = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, width: paddleWidth, height: paddleHeight };
 
