@@ -27,15 +27,21 @@ let ball = { x: canvas.width / 2, y: canvas.height / 2, size: ballSize, speedX: 
 let playerScore = 0;
 let aiScore = 0;
 
+// Pause functionality
+let isPaused = false;
+
 // Control settings
 document.addEventListener('keydown', movePaddle);
 document.addEventListener('keyup', stopPaddle);
+document.addEventListener('keydown', togglePause);
 
 function movePaddle(event) {
-    if (event.key === 'ArrowUp') {
-        playerPaddle.y -= playerPaddleSpeed;
-    } else if (event.key === 'ArrowDown') {
-        playerPaddle.y += playerPaddleSpeed;
+    if (!isPaused) {
+        if (event.key === 'ArrowUp') {
+            playerPaddle.y -= playerPaddleSpeed;
+        } else if (event.key === 'ArrowDown') {
+            playerPaddle.y += playerPaddleSpeed;
+        }
     }
 }
 
@@ -43,7 +49,16 @@ function stopPaddle(event) {
     // No specific action required for stopping the paddle, just handling the movement
 }
 
+function togglePause(event) {
+    if (event.key === 'p') {
+        isPaused = !isPaused;
+        document.getElementById('pauseMenu').classList.toggle('active', isPaused);
+    }
+}
+
 function draw() {
+    if (isPaused) return; // Skip drawing if the game is paused
+
     // Draw background
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
@@ -111,8 +126,8 @@ function draw() {
     ctx.fillStyle = '#fff';
     ctx.font = '30px "Resist Sans", sans-serif'; // Use Resist Sans font
     ctx.textAlign = 'center';
-    ctx.fillText(`PLAYER: ${playerScore}`, canvas.width / 4, 30);
-    ctx.fillText(`COMPUTER: ${aiScore}`, 3 * canvas.width / 4, 30);
+    ctx.fillText(`Player: ${playerScore}`, canvas.width / 4, 30);
+    ctx.fillText(`AI: ${aiScore}`, 3 * canvas.width / 4, 30);
 }
 
 function resetBall() {
