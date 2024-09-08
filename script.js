@@ -23,6 +23,10 @@ let aiPaddle = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHei
 // Ball properties
 let ball = { x: canvas.width / 2, y: canvas.height / 2, size: ballSize, speedX: 5, speedY: 3 };
 
+// Scores
+let playerScore = 0;
+let aiScore = 0;
+
 // Control settings
 document.addEventListener('keydown', movePaddle);
 document.addEventListener('keyup', stopPaddle);
@@ -76,12 +80,14 @@ function draw() {
     }
 
     // Ball reset if it goes off the sides
-    if (ball.x - ball.size < 0 || ball.x + ball.size > canvas.width) {
-        // Reset ball position and speed
-        ball.x = canvas.width / 2;
-        ball.y = canvas.height / 2;
-        ball.speedX = -ball.speedX;
-        ball.speedY = 3;
+    if (ball.x - ball.size < 0) {
+        // Player scores
+        aiScore++;
+        resetBall();
+    } else if (ball.x + ball.size > canvas.width) {
+        // AI scores
+        playerScore++;
+        resetBall();
     }
 
     // AI paddle movement with random mistakes
@@ -100,6 +106,20 @@ function draw() {
     // Ensure paddles don't go out of bounds
     playerPaddle.y = Math.max(0, Math.min(canvas.height - paddleHeight, playerPaddle.y));
     aiPaddle.y = Math.max(0, Math.min(canvas.height - paddleHeight, aiPaddle.y));
+
+    // Draw scores
+    ctx.fillStyle = '#fff';
+    ctx.font = '30px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText(`Player: ${playerScore}`, canvas.width / 4, 30);
+    ctx.fillText(`AI: ${aiScore}`, 3 * canvas.width / 4, 30);
+}
+
+function resetBall() {
+    ball.x = canvas.width / 2;
+    ball.y = canvas.height / 2;
+    ball.speedX = -ball.speedX;
+    ball.speedY = 3;
 }
 
 // Game loop
