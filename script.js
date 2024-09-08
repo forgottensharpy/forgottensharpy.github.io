@@ -109,10 +109,10 @@ function draw() {
 
     // Draw scores
     ctx.fillStyle = '#fff';
-    ctx.font = '30px Arial';
+    ctx.font = '30px "Resist Sans", sans-serif'; // Use Resist Sans font
     ctx.textAlign = 'center';
-    ctx.fillText(`Player: ${playerScore}`, canvas.width / 4, 30);
-    ctx.fillText(`AI: ${aiScore}`, 3 * canvas.width / 4, 30);
+    ctx.fillText(`PLAYER: ${playerScore}`, canvas.width / 4, 30);
+    ctx.fillText(`COMPUTER: ${aiScore}`, 3 * canvas.width / 4, 30);
 }
 
 function resetBall() {
