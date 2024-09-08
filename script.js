@@ -14,8 +14,8 @@ const paddleHeight = 100;
 const ballSize = 10;
 
 // Paddle positions and speeds
-const playerPaddleSpeed = 10; // Speed of the player paddle
-const aiPaddleSpeed = 6; // Speed of the AI paddle
+const playerPaddleSpeed = 6; // Speed of the player paddle
+const aiPaddleSpeed = 4; // Speed of the AI paddle
 const aiMistakeChance = 0.02; // Probability of the AI making a mistake
 let playerPaddle = { x: 0, y: canvas.height / 2 - paddleHeight / 2, width: paddleWidth, height: paddleHeight };
 let aiPaddle = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, width: paddleWidth, height: paddleHeight };
@@ -90,7 +90,7 @@ function draw() {
         aiPaddle.y += (Math.random() < 0.5 ? -aiPaddleSpeed : aiPaddleSpeed);
     } else {
         // Follow the ball with AI's slower speed
-        if (aiPaddle.y + aiPaddle.height / 2 < ball.y) {
+        if (ball.y > aiPaddle.y + aiPaddle.height / 2) {
             aiPaddle.y += aiPaddleSpeed;
         } else {
             aiPaddle.y -= aiPaddleSpeed;
