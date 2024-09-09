@@ -27,21 +27,15 @@ let ball = { x: canvas.width / 2, y: canvas.height / 2, size: ballSize, speedX: 
 let playerScore = 0;
 let aiScore = 0;
 
-// Pause functionality
-let isPaused = false;
-
 // Control settings
 document.addEventListener('keydown', movePaddle);
 document.addEventListener('keyup', stopPaddle);
-document.addEventListener('keydown', togglePause);
 
 function movePaddle(event) {
-    if (!isPaused) {
-        if (event.key === 'ArrowUp') {
-            playerPaddle.y -= playerPaddleSpeed;
-        } else if (event.key === 'ArrowDown') {
-            playerPaddle.y += playerPaddleSpeed;
-        }
+    if (event.key === 'ArrowUp') {
+        playerPaddle.y -= playerPaddleSpeed;
+    } else if (event.key === 'ArrowDown') {
+        playerPaddle.y += playerPaddleSpeed;
     }
 }
 
@@ -49,16 +43,7 @@ function stopPaddle(event) {
     // No specific action required for stopping the paddle, just handling the movement
 }
 
-function togglePause(event) {
-    if (event.key === 'p') {
-        isPaused = !isPaused;
-        document.getElementById('pauseMenu').classList.toggle('active', isPaused);
-    }
-}
-
 function draw() {
-    if (isPaused) return; // Skip drawing if the game is paused
-
     // Draw background
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
